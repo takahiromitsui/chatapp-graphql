@@ -1,0 +1,50 @@
+type User {
+    id: String!
+    name: String!
+    email: String!
+    password: String!
+    created_at: String!
+    updated_at: String!
+    rooms: [Room!]
+    messages: [Message!]
+}
+
+type Room {
+    id: String!
+    name: String!
+    created_at: String!
+    updated_at: String!
+    users: [User!]
+    messages: [Message!]
+}
+
+type Message {
+    id: String!
+    content: String!
+    created_at: String!
+    updated_at: String!
+    user: User!
+    room: Room!
+}
+
+type Query {
+    user(id: String!): User
+    room(id: String!): Room
+    message(id: String!): Message
+    users: [User!]
+    rooms: [Room!]
+    messages: [Message!]
+}
+
+type Mutation {
+    createUser(name: String!, email: String!, password: String!): User
+    createRoom(name: String!): Room
+    createMessage(content: String!, user_id: String!, room_id: String!): Message
+    # updateUser(id: String!, name: String, email: String, password: String): [Int!]!
+    # updateRoom(id: String!, name: String): [Int!]!
+    # updateMessage(id: String!, content: String): [Int!]!
+    # deleteUser(id: String!): Int!
+    # deleteRoom(id: String!): Int!
+    # deleteMessage(id: String!): Int!
+}
+`;
