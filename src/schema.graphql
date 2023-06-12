@@ -67,9 +67,9 @@ type Query {
     user(id: String!): User
     room(id: String!): Room
     message(id: String!): Message
-    users: [UsersResult!]
-    rooms: [RoomsResult!]
-    messages: [MessagesResult!]
+    users: UsersResult!
+    rooms: RoomsResult!
+    messages: MessagesResult!
 }
 
 type Mutation {
