@@ -1,5 +1,5 @@
 import uuid
-from src.main import db
+from src.extensions import db
 from src.models.user_room import user_room_association
 
 class User(db.Model):
@@ -10,6 +10,7 @@ class User(db.Model):
     created_at = db.Column(db.DateTime(timezone=True), server_default=db.func.now())
     updated_at = db.Column(db.DateTime(timezone=True), nullable=False, server_default=db.func.now(), onupdate=db.func.now())
     rooms = db.relationship('Room', secondary=user_room_association, backref='users')
+    messages = db.relationship('Message', backref='user', lazy=True)
     
     def to__dict__(self):
         return {
