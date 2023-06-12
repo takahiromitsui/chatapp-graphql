@@ -27,13 +27,31 @@ type Message {
     room: Room!
 }
 
+type UsersResult {
+  success: Boolean!
+  errors: [String]
+  data: [User]
+}
+
+type RoomsResult {
+  success: Boolean!
+  errors: [String]
+  data: [Room]
+}
+
+type MessagesResult {
+  success: Boolean!
+  errors: [String]
+  data: [Message]
+}
+
 type Query {
     user(id: String!): User
     room(id: String!): Room
     message(id: String!): Message
-    users: [User!]
-    rooms: [Room!]
-    messages: [Message!]
+    users: [UsersResult!]
+    rooms: [RoomsResult!]
+    messages: [MessagesResult!]
 }
 
 type Mutation {
@@ -47,4 +65,3 @@ type Mutation {
     # deleteRoom(id: String!): Int!
     # deleteMessage(id: String!): Int!
 }
-`;
