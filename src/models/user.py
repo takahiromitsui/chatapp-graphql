@@ -9,10 +9,10 @@ class User(db.Model):
     password = db.Column(db.String(50), nullable=False)
     created_at = db.Column(db.DateTime(timezone=True), server_default=db.func.now())
     updated_at = db.Column(db.DateTime(timezone=True), nullable=False, server_default=db.func.now(), onupdate=db.func.now())
-    rooms = db.relationship('Room', secondary=user_room_association, backref='users')
+    rooms = db.relationship('Room', secondary=user_room_association, backref='user')
     messages = db.relationship('Message', backref='user', lazy=True)
     
-    def to__dict__(self):
+    def to_dict(self):
         return {
             "id": self.id,
             "name": self.name,

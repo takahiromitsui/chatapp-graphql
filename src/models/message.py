@@ -10,7 +10,7 @@ class Message(db.Model):
     user_id = db.Column(db.String, db.ForeignKey('user.id'), nullable=False)
     room_id = db.Column(db.String, db.ForeignKey('room.id'), nullable=False)
     
-    def to__dict__(self):
+    def to_dict(self):
         return {
             "id": self.id,
             "name": self.name,

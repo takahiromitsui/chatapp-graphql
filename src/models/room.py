@@ -7,10 +7,9 @@ class Room(db.Model):
     name = db.Column(db.String(30), nullable=False)
     created_at = db.Column(db.DateTime(timezone=True), server_default=db.func.now())
     updated_at = db.Column(db.DateTime(timezone=True), nullable=False, server_default=db.func.now(), onupdate=db.func.now())
-    rooms = db.relationship('User', secondary=user_room_association, backref='rooms')
-    messages = db.relationship('Message', backref='user', lazy=True)
+    messages = db.relationship('Message', backref='room', lazy=True)
 
-    def to__dict__(self):
+    def to_dict(self):
         return {
             "id": self.id,
             "name": self.name,
