@@ -13,7 +13,7 @@ class Message(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
-            "name": self.name,
+            "content": self.content,
             "created_at": self.created_at,
             "updated_at": self.updated_at
         }

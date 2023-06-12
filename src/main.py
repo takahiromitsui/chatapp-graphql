@@ -2,9 +2,9 @@ from flask import Flask, request, jsonify
 import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from src.controllers.user import resolve_users
-from src.controllers.room import resolve_rooms
-from src.controllers.message import resolve_messages
+from src.controllers.user import resolve_create_user, resolve_users
+from src.controllers.room import resolve_create_room, resolve_rooms
+from src.controllers.message import resolve_create_message, resolve_messages
 from src.models import room, user, user_room, message
 from src.extensions import db, migrate
 from ariadne import graphql_sync, make_executable_schema, ObjectType, snake_case_fallback_resolvers, gql, load_schema_from_path
@@ -22,10 +22,15 @@ query.set_field('users', resolve_users)
 query.set_field('rooms', resolve_rooms)
 query.set_field('messages', resolve_messages)
 
+mutation = ObjectType('Mutation')
+mutation.set_field('createUser', resolve_create_user)
+mutation.set_field('createRoom', resolve_create_room)
+mutation.set_field('createMessage', resolve_create_message)
+
 explorer_html = ExplorerGraphiQL().html(None)
 
 type_defs = gql(load_schema_from_path("schema.graphql"))
-schema = make_executable_schema(type_defs, query, snake_case_fallback_resolvers)
+schema = make_executable_schema(type_defs, query, mutation, snake_case_fallback_resolvers)
 
 @app.route("/")
 def index():
