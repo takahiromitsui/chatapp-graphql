@@ -9,8 +9,10 @@ from src.models import room, user, user_room, message
 from src.extensions import db, migrate
 from ariadne import graphql_sync, make_executable_schema, ObjectType, snake_case_fallback_resolvers, gql, load_schema_from_path
 from ariadne.explorer import ExplorerGraphiQL
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app, origins="http://localhost:3000")
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('DATABASE_URL')
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
