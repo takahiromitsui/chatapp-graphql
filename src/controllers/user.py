@@ -1,3 +1,4 @@
+from src.helpers.auth import encrypt_password
 from src.models.user import User
 from src.extensions import db
 
@@ -21,7 +22,7 @@ def resolve_create_user(obj, info, name, email, password):
         user = User(
             name=name,
             email=email,
-            password=password
+            password=encrypt_password(password)
         )
         db.session.add(user)
         db.session.commit()
