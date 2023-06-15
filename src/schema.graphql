@@ -76,6 +76,7 @@ type Mutation {
     createUser(name: String!, email: String!, password: String!): UserResult
     createRoom(name: String!): RoomResult
     createMessage(content: String!, user_id: String!, room_id: String!): MessageResult
+    login(email: String!, password: String!): UserResult
     # updateUser(id: String!, name: String, email: String, password: String): [Int!]!
     # updateRoom(id: String!, name: String): [Int!]!
     # updateMessage(id: String!, content: String): [Int!]!
