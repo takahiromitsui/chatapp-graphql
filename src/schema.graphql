@@ -63,6 +63,13 @@ type MessageResult {
   data: Message
 }
 
+type LoginResult {
+  success: Boolean!
+  errors: [String]
+  data: User
+  token: String
+}
+
 type Query {
     user(id: ID!): User
     room(id: ID!): Room
@@ -71,13 +78,13 @@ type Query {
     rooms: RoomsResult!
     messages: MessagesResult!
     roomsByUserId(user_id: ID!): RoomsResult!
+    login(email: String!, password: String!): LoginResult!
 }
 
 type Mutation {
     createUser(name: String!, email: String!, password: String!): UserResult
     createRoom(name: String!): RoomResult
     createMessage(content: String!, user_id: ID!, room_id: ID!): MessageResult
-    login(email: String!, password: String!): UserResult
     # updateUser(id: String!, name: String, email: String, password: String): [Int!]!
     # updateRoom(id: String!, name: String): [Int!]!
     # updateMessage(id: String!, content: String): [Int!]!

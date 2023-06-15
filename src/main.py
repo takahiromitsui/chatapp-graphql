@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from src.controllers.user import resolve_create_user, resolve_users
+from src.controllers.user import resolve_create_user, resolve_login, resolve_users
 from src.controllers.room import resolve_create_room, resolve_rooms
 from src.controllers.message import resolve_create_message, resolve_messages
 from src.models import room, user, user_room, message
@@ -23,6 +23,7 @@ query = ObjectType('Query')
 query.set_field('users', resolve_users)
 query.set_field('rooms', resolve_rooms)
 query.set_field('messages', resolve_messages)
+query.set_field('login', resolve_login)
 
 mutation = ObjectType('Mutation')
 mutation.set_field('createUser', resolve_create_user)
@@ -54,6 +55,15 @@ def graphql_server():
     )
 
     status_code = 200 if success else 400
+    try:
+        token = result['data']['login']['token']
+        if token:
+            response = jsonify(result)
+            response.headers["Authorization"] = f"Bearer {token}"
+        
+    except:
+        status_code = 200 if success else 400
+        
     return jsonify(result), status_code
 
 
