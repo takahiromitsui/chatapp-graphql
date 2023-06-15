@@ -1,5 +1,5 @@
 type User {
-    id: String!
+    id: ID!
     name: String!
     email: String!
     password: String!
@@ -10,7 +10,7 @@ type User {
 }
 
 type Room {
-    id: String!
+    id: ID!
     name: String!
     created_at: String!
     updated_at: String!
@@ -19,7 +19,7 @@ type Room {
 }
 
 type Message {
-    id: String!
+    id: ID!
     content: String!
     created_at: String!
     updated_at: String!
@@ -64,18 +64,19 @@ type MessageResult {
 }
 
 type Query {
-    user(id: String!): User
-    room(id: String!): Room
-    message(id: String!): Message
+    user(id: ID!): User
+    room(id: ID!): Room
+    message(id: ID!): Message
     users: UsersResult!
     rooms: RoomsResult!
     messages: MessagesResult!
+    roomsByUserId(user_id: ID!): RoomsResult!
 }
 
 type Mutation {
     createUser(name: String!, email: String!, password: String!): UserResult
     createRoom(name: String!): RoomResult
-    createMessage(content: String!, user_id: String!, room_id: String!): MessageResult
+    createMessage(content: String!, user_id: ID!, room_id: ID!): MessageResult
     login(email: String!, password: String!): UserResult
     # updateUser(id: String!, name: String, email: String, password: String): [Int!]!
     # updateRoom(id: String!, name: String): [Int!]!
